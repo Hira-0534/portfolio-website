@@ -73,22 +73,23 @@
 
 function toggleProjects() {
     const extraProjects = document.querySelectorAll('.extra-project');
+    const githubLink = document.getElementById('github-link');
     const btn = document.getElementById('view-btn');
     
-    const areHidden = extraProjects[0].classList.contains('hidden');
+    // Check karein ke pehla extra project hidden hai ya nahi
+    const areCurrentlyHidden = extraProjects[0].classList.contains('hidden');
 
-    extraProjects.forEach(project => {
-        if (areHidden) {
-            project.classList.remove('hidden');
-        } else {
-            project.classList.add('hidden');
-        }
-    });
-
-    // Button ka text aur icon change karein
-    if (areHidden) {
+    if (areCurrentlyHidden) {
+        // Projects show karein
+        extraProjects.forEach(p => p.classList.remove('hidden'));
+        githubLink.classList.remove('hidden');
+        // Button text update
         btn.innerHTML = 'Show Less <i class="fas fa-chevron-up ml-2"></i>';
     } else {
+        // Projects wapas chupayein
+        extraProjects.forEach(p => p.classList.add('hidden'));
+        githubLink.classList.add('hidden');
+        // Button text update
         btn.innerHTML = 'View All Projects <i class="fas fa-chevron-down ml-2"></i>';
     }
 }
