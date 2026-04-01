@@ -47,12 +47,12 @@
 }
   
    .skill-progress {
+    transition: width 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     width: 0; /* Shuru mein bilkul 0 rahay gi */
     height: 100%;
     border-radius: 4px;
     background: linear-gradient(90deg, #0ea5e9, #7e22ce);
     /* Transition lazmi hai taake width change hote waqt fill hoti nazar aaye */
-    transition: width 1.5s ease-in-out; 
     box-shadow: 0 0 10px 1px rgba(139, 92, 246, 0.5);
 }
 /* Shuru mein section hidden aur thoda neechay hoga */
@@ -184,4 +184,17 @@
 .cursor-grow {
     transform: scale(3);
     background: rgba(14, 165, 233, 0.1);
+}
+/* Navbar ko hamesha sab se upar rakhne ke liye */
+nav {
+    z-index: 100 !important;
+    position: sticky;
+    top: 0;
+    background-color: #000; /* Aapka black bar */
+}
+
+/* Picture ko control karne ke liye */
+.hero-img {
+    max-height: 80vh; /* Picture screen se bari na ho */
+    object-fit: contain;
 }

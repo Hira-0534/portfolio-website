@@ -1,12 +1,23 @@
 
         // Mobile menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+      const menuToggle = document.getElementById('menu-toggle');
+const menuIcon = document.getElementById('menu-icon');
+const mobileMenu = document.getElementById('mobile-menu'); // Ensure karein ke aapka mobile menu div ki id yahi ho
+
+menuToggle.addEventListener('click', () => {
+    // 1. Mobile menu ko show/hide karein
+    mobileMenu.classList.toggle('hidden');
     
+    // 2. Icon change karein (Bars <-> Cross)
+    if (menuIcon.classList.contains('fa-bars')) {
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-times'); // Cross icon
+    } else {
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars'); // Bars icon
+    }
+});
+
     const textElement = document.getElementById('typing-text');
     const words = ["Full-stack-Developer", "Software Engineer", "Creative Coder"];
     let wordIndex = 0;
@@ -254,3 +265,4 @@ document.querySelectorAll('.project-card').forEach(card => {
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
     });
 });
+
