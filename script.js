@@ -152,4 +152,105 @@ function toggleProjects() {
         };
         
         window.addEventListener('scroll', animateSkillBars);
+  // 1. Skills Section ka logic
+const skillsOptions = {
+    threshold: 0.3 
+};
+
+const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const progressBars = entry.target.querySelectorAll('.skill-progress');
+            progressBars.forEach(bar => {
+                // Width reset kar ke apply karein taake animation trigger ho
+                bar.style.width = '0';
+                setTimeout(() => {
+                    const targetWidth = bar.style.getPropertyValue('--target-width');
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+            skillsObserver.unobserve(entry.target);
+        }
+    });
+}, skillsOptions);
+
+const skillsSection = document.querySelector('#skills');
+if (skillsSection) {
+    skillsObserver.observe(skillsSection);
+}
+// Page load hote hi Home section ko animate karne ke liye
+window.addEventListener('load', () => {
+    const homeSection = document.querySelector('#home');
+    if (homeSection) {
+        // 300ms ka delay taake user ko page nazar aaye phir animation chale
+        setTimeout(() => {
+            homeSection.classList.remove('opacity-0', 'translate-y-10');
+            homeSection.classList.add('opacity-100', 'translate-y-0');
+        }, 300);
+    }
+});
+const sectionRevealOptions = {
+    threshold: 0.15 
+};
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-10');
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+        }
+    });
+}, sectionRevealOptions);
+
+document.querySelectorAll('.reveal-section').forEach(section => {
+    sectionObserver.observe(section);
+});
+const cursor = document.createElement('div');
+cursor.className = 'custom-cursor';
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+// Buttons par hover effect
+document.querySelectorAll('a, button').forEach(link => {
+    link.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
+    link.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
+});
+window.addEventListener('scroll', () => {
+    // 1. Check karein ke user ne kitna scroll kiya hai
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     
+    // 2. Total height nikaalein (poore page ki height minus screen ki height)
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    
+    // 3. Percentage calculate karein
+    const scrolled = (winScroll / height) * 100;
+    
+    // 4. Bar ki width update karein
+    const progressContainer = document.getElementById("scroll-progress");
+    if (progressContainer) {
+        progressContainer.style.width = scrolled + "%";
+    }
+});
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+});
