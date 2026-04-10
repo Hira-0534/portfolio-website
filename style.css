@@ -58,8 +58,8 @@
 /* Shuru mein section hidden aur thoda neechay hoga */
 .reveal-section {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
+    transform: translateY(80px); /* Zyada gap ke liye */
+    transition: all 1.2s ease-out;
 }
 
 /* Jab JS class add karega toh section apni asli jagah par aa jaye ga */
@@ -171,20 +171,7 @@
         }
        
     
-        .custom-cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #0ea5e9;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transition: transform 0.1s ease;
-    z-index: 9999;
-}
-.cursor-grow {
-    transform: scale(3);
-    background: rgba(14, 165, 233, 0.1);
-}
+        
 /* Navbar ko hamesha sab se upar rakhne ke liye */
 nav {
     z-index: 100 !important;

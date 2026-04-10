@@ -200,15 +200,21 @@ window.addEventListener('load', () => {
         }, 300);
     }
 });
+// Pehle threshold 0.5 tha, hum usay thora change karenge aur rootMargin add karenge
 const sectionRevealOptions = {
-    threshold: 0.15 
+    threshold: 0.1, // Jaise hi section ka 10% nazar aaye, tab trigger ho...
+    rootMargin: "0px 0px -150px 0px" // ...lekin tab jab wo screen ke bottom se 150px upar aa jaye
 };
 
 const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            // Animation trigger karein
             entry.target.classList.remove('opacity-0', 'translate-y-10');
             entry.target.classList.add('opacity-100', 'translate-y-0');
+            
+            // Ek baar reveal ho jaye toh observer ko stop kar dein (optional)
+            // sectionObserver.unobserve(entry.target); 
         }
     });
 }, sectionRevealOptions);
@@ -225,11 +231,7 @@ document.addEventListener('mousemove', (e) => {
     cursor.style.top = e.clientY + 'px';
 });
 
-// Buttons par hover effect
-document.querySelectorAll('a, button').forEach(link => {
-    link.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
-    link.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
-});
+
 window.addEventListener('scroll', () => {
     // 1. Check karein ke user ne kitna scroll kiya hai
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -265,4 +267,13 @@ document.querySelectorAll('.project-card').forEach(card => {
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
     });
 });
-
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    const progressBar = document.getElementById("scroll-progress");
+    if (progressBar) {
+        progressBar.style.width = scrolled + "%";
+    }
+});
