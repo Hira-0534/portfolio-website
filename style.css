@@ -185,3 +185,16 @@ nav {
     max-height: 80vh; /* Picture screen se bari na ho */
     object-fit: contain;
 }
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 10s linear infinite;
+}
+
+/* Is se text circle ke sath sahi tarah align rahay ga */
+#circlePath {
+    fill: none;
+}
